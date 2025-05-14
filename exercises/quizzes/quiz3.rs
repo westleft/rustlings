@@ -12,14 +12,18 @@
 // block to support alphabetical report cards in addition to numerical ones.
 
 // TODO: Adjust the struct as described above.
-struct ReportCard {
-    grade: f32,
+struct ReportCard<T> {
+    grade: T,
     student_name: String,
     student_age: u8,
 }
 
 // TODO: Adjust the impl block as described above.
-impl ReportCard {
+// T: std::fmt::Display 表示 T 必須實現 Display trait
+// Display trait 確保型態可以被轉換成字串顯示
+// 這樣 ReportCard 就可以同時處理數值型態和字串型態的成績
+// 泛型 T 可以代表任何實現了 Display trait 的型態，例如 f32 和 String
+impl<T: std::fmt::Display> ReportCard<T> {
     fn print(&self) -> String {
         format!(
             "{} ({}) - achieved a grade of {}",
